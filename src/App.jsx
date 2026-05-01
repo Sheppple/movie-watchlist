@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
 import movieData from "./data/movies.json";
+import { useEffect, useMemo, useState } from "react";
 
 function getCategories(movies) {
   return ["All", ...new Set(movies.map((movie) => movie.category))];
@@ -7,6 +7,52 @@ function getCategories(movies) {
 
 function getTags(movies) {
   return ["All", ...new Set(movies.flatMap((movie) => movie.tags))];
+}
+
+function Fireflies() {
+  const fireflies = useMemo(() => {
+    return Array.from({ length: 42 }, (_, index) => ({
+      id: index,
+      layer: index < 26 ? "back" : "front",
+      left: Math.random() * 100,
+      delay: Math.random() * -30,
+      duration: 16 + Math.random() * 18,
+      drift: -40 + Math.random() * 80
+    }));
+  }, []);
+
+  useEffect(() => {
+    function handleMouseMove(event) {
+      const x = event.clientX / window.innerWidth - 0.5;
+      const y = event.clientY / window.innerHeight - 0.5;
+
+      document.documentElement.style.setProperty("--mouse-x", `${x * -45}px`);
+      document.documentElement.style.setProperty("--mouse-y", `${y * -45}px`);
+    }
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  return (
+    <div className="firefly-area">
+      {fireflies.map((firefly) => (
+        <span
+          key={firefly.id}
+          className={`firefly ${firefly.layer}`}
+          style={{
+            left: `${firefly.left}%`,
+            animationDelay: `${firefly.delay}s`,
+            animationDuration: `${firefly.duration}s`,
+            "--drift": `${firefly.drift}px`
+          }}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default function App() {
@@ -67,6 +113,7 @@ export default function App() {
 
   return (
     <main className="page">
+      <Fireflies />
       <header className="hero">
         <div>
           <h1>Welcome back, Joy.</h1>
