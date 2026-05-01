@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "title": "Inception",
+    "year": 2010,
+    "category": "Sci-Fi",
+    "tags": ["mind-bending", "action"],
+    "watched": true,
+    "rating": 9,
+    "notes": "Dream within a dream.",
+    "image": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Parasite",
+    "year": 2019,
+    "category": "Thriller",
+    "tags": ["dark", "social"],
+    "watched": false,
+    "rating": 10,
+    "notes": "Class and deception.",
+    "image": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg"
+  }
+]
