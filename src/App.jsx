@@ -32,6 +32,9 @@ export default function App() {
           movie.category.toLowerCase().includes(search) ||
           movie.tags.some((tag) => tag.toLowerCase().includes(search));
 
+        const matchesType =
+          selectedType === "All" || movie.type === selectedType;
+
         const matchesCategory =
           selectedCategory === "All" || movie.category === selectedCategory;
 
@@ -43,9 +46,6 @@ export default function App() {
           (watchFilter === "Watched" && movie.watched) ||
           (watchFilter === "Not watched" && !movie.watched);
 
-        const matchesType =
-          selectedType === "All" || movie.type === selectedType;
-
         return matchesSearch && matchesCategory && matchesTag && matchesWatchStatus && matchesType;
       })
       .sort((a, b) => {
@@ -55,7 +55,7 @@ export default function App() {
         if (sortBy === "rating") return b.rating - a.rating;
         return 0;
       });
-  }, [movies, searchTerm, selectedCategory, selectedTag, watchFilter, sortBy, matchesType]);
+  }, [movies, searchTerm,selectedType, selectedCategory, selectedTag, watchFilter, sortBy]);
 
   function toggleWatched(id) {
     setMovies((currentMovies) =>
@@ -71,7 +71,7 @@ export default function App() {
         <div>
           <h1>Welcome back, Joy.</h1>
           <p className="hero-text">
-            If you ever want to watch something picked directly form my amazing taste of media. Come here. I'll keep the list updated.
+            If you ever want to watch something picked directly from my amazing taste of media then you have a full list to your disposal.
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export default function App() {
           <input
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            placeholder="Search for anything you want :)"
+            placeholder="Search for movies or tv shows"
           />
         </label>
         
