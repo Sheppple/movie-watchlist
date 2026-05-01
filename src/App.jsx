@@ -16,6 +16,7 @@ export default function App() {
   const [selectedTag, setSelectedTag] = useState("All");
   const [watchFilter, setWatchFilter] = useState("All");
   const [sortBy, setSortBy] = useState("title");
+  const [selectedType, setSelectedType] = useState("All");
 
   const categories = useMemo(() => getCategories(movies), [movies]);
   const tags = useMemo(() => getTags(movies), [movies]);
@@ -42,7 +43,10 @@ export default function App() {
           (watchFilter === "Watched" && movie.watched) ||
           (watchFilter === "Not watched" && !movie.watched);
 
-        return matchesSearch && matchesCategory && matchesTag && matchesWatchStatus;
+        const matchesType =
+          selectedType === "All" || movie.type === selectedType;
+
+        return matchesSearch && matchesCategory && matchesTag && matchesWatchStatus && matchesType;
       })
       .sort((a, b) => {
         if (sortBy === "title") return a.title.localeCompare(b.title);
@@ -51,7 +55,7 @@ export default function App() {
         if (sortBy === "rating") return b.rating - a.rating;
         return 0;
       });
-  }, [movies, searchTerm, selectedCategory, selectedTag, watchFilter, sortBy]);
+  }, [movies, searchTerm, selectedCategory, selectedTag, watchFilter, sortBy, matchesType]);
 
   function toggleWatched(id) {
     setMovies((currentMovies) =>
@@ -65,11 +69,9 @@ export default function App() {
     <main className="page">
       <header className="hero">
         <div>
-          <p className="eyebrow">🎬 My Movie Watchlist</p>
-          <h1>Welcome back, movie fan.</h1>
+          <h1>Welcome back, Joy.</h1>
           <p className="hero-text">
-            Search your films, filter by category or tag, sort your watchlist,
-            and keep track of what you have watched.
+            If you ever want to watch something picked directly form my amazing taste of media. Come here. I'll keep the list updated.
           </p>
         </div>
 
@@ -85,8 +87,20 @@ export default function App() {
           <input
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            placeholder="Try: space, thriller, Inception..."
+            placeholder="Search for anything you want :)"
           />
+        </label>
+        
+        <label>
+          Type
+          <select
+            value={selectedType}
+            onChange={(event) => setSelectedType(event.target.value)}
+          >
+            <option>All</option>
+            <option>Movie</option>
+            <option>TV Show</option>
+          </select>
         </label>
 
         <label>
@@ -152,7 +166,7 @@ export default function App() {
             <div className="movie-card-header">
               <div>
                 <h2>{movie.title}</h2>
-                <p>{movie.year} · {movie.category}</p>
+                <p>{movie.type} · {movie.year} · {movie.category}</p>
               </div>
 
               <button

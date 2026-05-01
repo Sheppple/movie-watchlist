@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "type": "Movie",
     "title": "Inception",
     "year": 2010,
     "category": "Sci-Fi",
@@ -12,13 +13,14 @@
   },
   {
     "id": 2,
-    "title": "Parasite",
-    "year": 2019,
-    "category": "Thriller",
-    "tags": ["dark", "social"],
+    "type": "TV Show",
+    "title": "Breaking Bad",
+    "year": 2008,
+    "category": "Crime",
+    "tags": ["drama", "crime", "intense"],
     "watched": false,
     "rating": 10,
-    "notes": "Class and deception.",
-    "image": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg"
+    "notes": "A chemistry teacher turns to crime.",
+    "image": "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"
   }
 ]
